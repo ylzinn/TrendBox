@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendBox - Loja Virtual</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #111827;
+      color: white;
+      padding: 20px;
+      position: fixed;
+      height: 100%;
+      transition: 0.3s;
+      overflow-y: auto;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #60a5fa;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      top: 20px;
+      left: 230px;
+      background: #2563eb;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .content {
+      margin-left: 240px;
+      padding: 30px;
+      flex: 1;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .product h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .product button {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .cart {
+      background: white;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+
+    .cart h3 {
+      margin-bottom: 15px;
+    }
+
+    .cart-total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .finalizar-btn {
+      margin-top: 15px;
+      background: #3b82f6;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        left: -220px;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .toggle-btn {
+        left: 20px;
+      }
+
+      .content {
+        margin-left: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar" id="sidebar">
+    <h2>TrendBox</h2>
+    <a href="#acessorios">Acessórios</a>
+    <a href="#eletronicos">Eletrônicos</a>
+    <a href="#roupas">Roupas</a>
+    <a href="#pets">Para Pets</a>
+    <a href="#cozinha">Cozinha</a>
+  </div>
+
+  <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+
+  <div class="content">
+    <h1>Produtos em Destaque</h1>
+
+    <h2 id="pets">Para Pets</h2>
+    <div class="products">
+      <div class="product"><h3>Brinquedo para cachorro</h3><p>R$ 29,90</p><button onclick="adicionar(29.90)">Adicionar</button></div>
+      <div class="product"><h3>Pote de ração (cão)</h3><p>R$ 24,90</p><button onclick="adicionar(24.90)">Adicionar</button></div>
+      <div class="product"><h3>Pote de ração (gato)</h3><p>R$ 22,50</p><button onclick="adicionar(22.50)">Adicionar</button></div>
+      <div class="product"><h3>Brinquedo para gato</h3><p>R$ 19,90</p><button onclick="adicionar(19.90)">Adicionar</button></div>
+      <div class="product"><h3>Ração premium</h3><p>R$ 49,90</p><button onclick="adicionar(49.90)">Adicionar</button></div>
+    </div>
+
+    <h2 id="cozinha">Cozinha</h2>
+    <div class="products">
+      <div class="product"><h3>Conjunto talheres inox</h3><p>R$ 89,90</p><button onclick="adicionar(89.90)">Adicionar</button></div>
+      <div class="product"><h3>Escorredor dobrável</h3><p>R$ 39,90</p><button onclick="adicionar(39.90)">Adicionar</button></div>
+      <div class="product"><h3>Forma de silicone</h3><p>R$ 29,90</p><button onclick="adicionar(29.90)">Adicionar</button></div>
+      <div class="product"><h3>Moedor de tempero</h3><p>R$ 49,90</p><button onclick="adicionar(49.90)">Adicionar</button></div>
+      <div class="product"><h3>Medidores de cozinha</h3><p>R$ 19,90</p><button onclick="adicionar(19.90)">Adicionar</button></div>
+    </div>
+
+    <h2 id="eletronicos">Eletrônicos</h2>
+    <div class="products">
+      <div class="product"><h3>Fone bluetooth</h3><p>R$ 89,90</p><button onclick="adicionar(89.90)">Adicionar</button></div>
+      <div class="product"><h3>Relógio digital</h3><p>R$ 79,90</p><button onclick="adicionar(79.90)">Adicionar</button></div>
+      <div class="product"><h3>Fone com fio</h3><p>R$ 39,90</p><button onclick="adicionar(39.90)">Adicionar</button></div>
+      <div class="product"><h3>Relógio de pulso LED</h3><p>R$ 59,90</p><button onclick="adicionar(59.90)">Adicionar</button></div>
+      <div class="product"><h3>Mini speaker</h3><p>R$ 49,90</p><button onclick="adicionar(49.90)">Adicionar</button></div>
+    </div>
+
+    <h2 id="roupas">Roupas</h2>
+    <div class="products">
+      <div class="product"><h3>Camisa básica</h3><p>R$ 49,90</p><button onclick="adicionar(49.90)">Adicionar</button></div>
+      <div class="product"><h3>Boné ajustável</h3><p>R$ 29,90</p><button onclick="adicionar(29.90)">Adicionar</button></div>
+      <div class="product"><h3>Meias coloridas</h3><p>R$ 19,90</p><button onclick="adicionar(19.90)">Adicionar</button></div>
+      <div class="product"><h3>Camiseta estampada</h3><p>R$ 59,90</p><button onclick="adicionar(59.90)">Adicionar</button></div>
+      <div class="product"><h3>Short moletom</h3><p>R$ 39,90</p><button onclick="adicionar(39.90)">Adicionar</button></div>
+    </div>
+
+    <div class="cart">
+      <h3>Carrinho</h3>
+      <p>Total: R$ <span id="total">0.00</span></p>
+      <button class="finalizar-btn" onclick="finalizarCompra()">Finalizar Compra</button>
+    </div>
+  </div>
+
+  <script>
+    let total = 0;
+
+    function adicionar(valor) {
+      total += valor;
+      document.getElementById('total').textContent = total.toFixed(2);
+    }
+
+    function finalizarCompra() {
+      if (total > 0) {
+        window.open(`pagamento.html?valor=${total.toFixed(2)}`, '_blank');
+      } else {
+        alert('Adicione algum produto!');
+      }
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
+    }
+
+    // Atalho de teclado para abrir menu: tecla "m"
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'm' || e.key === 'M') {
+        toggleSidebar();
+      }
+    });
+  </script>
+</body>
+</html>
